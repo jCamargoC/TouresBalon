@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.touresbalon</groupId>
+    <artifactId>toures-balon</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>b2c</artifactId>
+  <packaging>pom</packaging>
+  <name>B2C</name>
+  <description>Proyecto para agrupar los servicios del B2C</description>
+  <modules>
+	<module>b2c-entities</module>
+  	<module>shopping-cart</module>
+  	<module>clients-manager</module>
+  	<module>b2c-repositories</module>
+  	<module>security</module>
+  </modules>
+  
+</project>

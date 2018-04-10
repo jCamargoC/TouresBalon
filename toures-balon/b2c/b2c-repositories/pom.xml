@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <groupId>com.touresbalon</groupId>
+    <artifactId>b2c</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>com.touresbalon.b2c</groupId>
+  <artifactId>b2c-repositories</artifactId>
+  <name>Repositorios B2C</name>
+  <description>Este proyecto define los repositorios de acceso a entidades de negocio del b2c</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.springframework.data</groupId>
+  		<artifactId>spring-data-jpa</artifactId>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.touresbalon.b2c</groupId>
+  		<artifactId>b2c-entities</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.touresbalon</groupId>
+  		<artifactId>common</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
+</project>
