@@ -1,6 +1,6 @@
 package com.touresbalon.b2c.services;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,13 +22,15 @@ public class ClientService extends CommonServiceContract<Client> {
 
 	@Override
 	public Client postSave(Client object) {
-		if (object.getId() == null) {
-			for (Address address : object.getAddresses()) {
-				address.setClients(new ArrayList<Client>());
-				address.getClients().add(object);
+		List<Address> list = object.getAddresses();
+		if (list != null && !list.isEmpty()) {
+			for (int i=0;i<list.size();i++) {
+				Address address =list.get(i);
+				address.setClient(object);
 				addressRepository.save(address);
 			}
 		}
+
 		return object;
 	}
 
@@ -37,6 +39,13 @@ public class ClientService extends CommonServiceContract<Client> {
 		Client existant = findByAttribute("email", object.getEmail());
 		if (existant != null && object.getId() == null) {
 			throw new BusinessException(ErrorsEnum.CLIENT_EXISTS);
+		}else if(object.getId() != null) {
+			List<Address> list = object.getAddresses();
+			if (list != null && !list.isEmpty()) {
+				for (Address address : list) {
+					addressRepository.save(address);
+				}
+			}
 		}
 		return Boolean.TRUE;
 	}

@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.User;
 
 /**
  *
- * @author Cesar
+ * @author Jorge
  */
 
 public class SessionUserBean extends User {

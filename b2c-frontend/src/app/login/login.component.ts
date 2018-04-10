@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from '../services/login.service';
 import { ClientService } from '../services/client.service';
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     Validators.required,
     Validators.email,
   ]);
-  constructor(private router: Router, private loginService: LoginService,private clientService:ClientService) { }
+  constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService,private router: Router, private loginService: LoginService,private clientService:ClientService) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -34,15 +34,10 @@ export class LoginComponent implements OnInit {
   }
 
   doLogin() {
-    this.loginService.login(this.login.user, this.login.password).subscribe(resp => {
-      console.log(resp);
-      const keys = resp.headers.keys();
-      var headers = keys.map(key =>
-        `${key}: ${resp.headers.get(key)}`);
-        console.log(headers);
-      this.clientService.getClientById(3).subscribe(data=>{
-        console.log("tenga su servicio");
-      });
+    this.loginService.login(this.login.user, this.login.password).subscribe(data => {
+      this.storage.set("user",data['payload']);
+      window.location.reload();
+      this.router.navigateByUrl("/");
     });
   }
   goToMain() {

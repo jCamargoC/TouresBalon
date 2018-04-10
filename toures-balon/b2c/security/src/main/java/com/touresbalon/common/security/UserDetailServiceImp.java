@@ -20,7 +20,7 @@ import com.touresbalon.entities.clients.Client;
 
 /**
  *
- * @author Cesar
+ * @author Jorge
  */
 @Component("userDetailsService")
 public class UserDetailServiceImp implements UserDetailsService {

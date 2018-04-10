@@ -9,19 +9,17 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  login(username: string, password: string): Observable<HttpResponse<ClientResponse>> {
+  login(username: string, password: string){
     const url = Constants.LOGIN_URL;
     var encoded = btoa(username + ":" + password);
     let headers = new HttpHeaders();
     headers = headers.append("Authorization", "Basic " + encoded);
     headers = headers.append("Content-Type", "application/json");
     const httpOptions = {
-      headers: headers
+      headers: headers,
+      withCredentials: true
     };
     console.log(httpOptions.headers.get("Authorization"));
-    return this.http.post<ClientResponse>(url, username, {
-      "headers": headers,
-      observe: 'response'
-    });
+    return this.http.post<ClientResponse>(url, username, httpOptions);
   }
 }

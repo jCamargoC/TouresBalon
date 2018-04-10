@@ -22,10 +22,11 @@ export class MainComponent implements OnInit {
   public imageSources: string[];
   campaigns: Campaign[] = null;
   products: Producto[] = null;
-
+  currentUser=this.storage.get("user");
   constructor(private http: HttpClient, private campaignService: CampaignService, private productService: ProductService, @Inject(LOCAL_STORAGE) private storage: WebStorageService, private router: Router) { }
 
   ngOnInit() {
+    
     this.campaignService.getCampaigns().subscribe(data => {
 
       this.campaigns = data;

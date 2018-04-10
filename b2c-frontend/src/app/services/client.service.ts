@@ -19,14 +19,16 @@ export class ClientService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-      })
+      }),withCredentials: true
     };
     return this.http.get<ClientResponse>(url, httpOptions);
   }
 
   updateClient(client: Client) {
     const url = Constants.CLIENTS_URL;
-
-    return this.http.put<ClientResponse>(url, client);
+    const httpOptions = {
+      withCredentials: true
+    };
+    return this.http.put<ClientResponse>(url, client,httpOptions);
   }
 }

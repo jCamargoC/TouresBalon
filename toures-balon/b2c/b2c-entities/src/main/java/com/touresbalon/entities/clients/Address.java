@@ -1,7 +1,6 @@
 package com.touresbalon.entities.clients;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,8 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -42,10 +40,10 @@ public class Address implements Serializable {
 	private AddressType addresType;
 	@Column(name = "ad_city")
 	private String city;
-	@ManyToMany(cascade= CascadeType.ALL)
-	@JoinTable(name = "b2c_customer_address", joinColumns = @JoinColumn(name = "cad_address_id"), inverseJoinColumns = @JoinColumn(name = "cad_clientId"), foreignKey = @ForeignKey(name = "FK_CustomerAddres_clientId_Client_id"), inverseForeignKey = @ForeignKey(name = "FK_CustomerAddress_addressId_Address_id"))
+	@ManyToOne(cascade= CascadeType.ALL)
+	@JoinColumn(name = "cad_client_id",foreignKey=@ForeignKey(name = "FK_Address_clientId_Client_id"))
 	@JsonIgnore
-	private List<Client> clients;
+	private Client client;
 
 	public AddressType getAddresType() {
 		return addresType;
@@ -55,12 +53,12 @@ public class Address implements Serializable {
 		this.addresType = addresType;
 	}
 
-	public List<Client> getClients() {
-		return clients;
+	public Client getClient() {
+		return client;
 	}
 
-	public void setClients(List<Client> clients) {
-		this.clients = clients;
+	public void setClient(Client clients) {
+		this.client = clients;
 	}
 
 	public Long getId() {

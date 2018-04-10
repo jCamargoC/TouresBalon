@@ -10,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
- * @author Cesar
+ * @author Jorge
  */
 public final class SessionBean {
 

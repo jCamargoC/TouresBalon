@@ -12,16 +12,19 @@
       </mat-icon>
     </button>
   </span>
-  <button mat-icon-button (click)="goToLogin()">
+  <button *ngIf="!currentUser" mat-icon-button (click)="goToLogin()">
     <mat-icon matTooltip="Sign in" [matTooltipPosition]="'below'">
       <i class="fas fa-user"></i>
     </mat-icon>
   </button>
-  <button mat-icon-button [matMenuTriggerFor]="menu">
+  <button *ngIf="!currentUser" mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon>more_vert</mat-icon>
   </button>
+  <button *ngIf="currentUser" mat-button [matMenuTriggerFor]="menu">
+    <mat-icon><i class="fas fa-user"></i></mat-icon> {{currentUser.names}}
+  </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item >
+    <button *ngIf="currentUser" (click)="goToProfile()" mat-menu-item >
       <mat-icon>
         <i class="fas fa-user"></i>
       </mat-icon>
@@ -33,7 +36,13 @@
       </mat-icon>
       <span>Shopping cart</span>
     </button>
-    <button mat-menu-item>
+    <button *ngIf="currentUser" mat-menu-item (click)="goToOrders()">
+      <mat-icon>
+        <i class="fas fa-parachute-box"></i>
+      </mat-icon>
+      <span>Mis órdenes</span>
+    </button>
+    <button *ngIf="currentUser" (click)="signOut()" mat-menu-item>
       <mat-icon>
         <i class="fas fa-sign-out-alt"></i>
       </mat-icon>

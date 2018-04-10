@@ -26,6 +26,8 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MatSelectModule } from '@angular/material/select';
+import { UserComponent } from './user/user.component';
+import { OrdersComponent } from './orders/orders.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { MatSelectModule } from '@angular/material/select';
     ProductComponent,
     ShoppingCartComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    UserComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
@@ -74,6 +78,14 @@ import { MatSelectModule } from '@angular/material/select';
       {
         path: 'register',
         component: RegisterComponent
+      },
+      {
+        path: 'user',
+        component: UserComponent
+      },
+      {
+        path: 'orders',
+        component: OrdersComponent
       }
     ]),
     MDBBootstrapModule.forRoot(),

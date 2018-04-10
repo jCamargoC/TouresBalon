@@ -1,5 +1,10 @@
 <br>
 <br>
+<div style="width: 70%;margin: auto" *ngIf="currentUser">
+    <h1>Bienvenido! {{currentUser.names}}</h1>
+</div>
+<br>
+<br>
 <div style="width: 70%;margin: auto">
     <mdb-carousel [isControls]="true" class="carousel slide carousel-fade" [animation]="'fade'">
 

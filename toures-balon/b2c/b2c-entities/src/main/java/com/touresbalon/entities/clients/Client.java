@@ -12,7 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -49,7 +49,7 @@ public class Client implements Serializable {
 	@Column(name = "status")
 	@Enumerated(EnumType.STRING)
 	private ClientStatus status;
-	@ManyToMany(mappedBy = "clients",fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "client",fetch=FetchType.EAGER)
 	private List<Address> addresses;
 	@Column(name = "cl_password")	
 	@JsonDeserialize(using=EncryptDeserializer.class)	
