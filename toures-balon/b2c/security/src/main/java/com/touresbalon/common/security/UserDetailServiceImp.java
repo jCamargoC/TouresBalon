@@ -31,8 +31,11 @@ public class UserDetailServiceImp implements UserDetailsService {
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
 
-		grantedAuths.add(() -> {
-			return "AUTH_USER";
+		grantedAuths.add(new GrantedAuthority() {
+			
+			public String getAuthority() {
+				return "AUTH_USER";
+			}
 		});
 
 		Client u = userService.findByAttribute("email", userName);
