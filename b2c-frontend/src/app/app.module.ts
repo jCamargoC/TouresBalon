@@ -28,6 +28,7 @@ import { RegisterComponent } from './register/register.component';
 import { MatSelectModule } from '@angular/material/select';
 import { UserComponent } from './user/user.component';
 import { OrdersComponent } from './orders/orders.component';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { OrdersComponent } from './orders/orders.component';
     LoginComponent,
     RegisterComponent,
     UserComponent,
-    OrdersComponent
+    OrdersComponent,
+    OrderDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -86,6 +88,10 @@ import { OrdersComponent } from './orders/orders.component';
       {
         path: 'orders',
         component: OrdersComponent
+      },
+      {
+        path: 'orderdetail',
+        component: OrderDetailComponent
       }
     ]),
     MDBBootstrapModule.forRoot(),

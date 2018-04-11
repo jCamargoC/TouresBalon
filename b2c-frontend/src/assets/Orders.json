@@ -5,7 +5,7 @@
 		"price":1234561,
 		"status":"PENDING",
 		"comments":"Tenga sus comentarios",
-		"client":1
+		"client":1,
 		"items":[
 			{
 				"id":1,
@@ -22,7 +22,7 @@
 		"price":1234561,
 		"status":"PENDING",
 		"comments":"Tenga sus comentarios",
-		"client":1
+		"client":1,
 		"items":[
 			{
 				"id":1,
@@ -39,7 +39,7 @@
 		"price":2469122,
 		"status":"PENDING",
 		"comments":"Tenga sus comentarios",
-		"client":1
+		"client":1,
 		"items":[
 			{
 				"id":1,

@@ -66,6 +66,8 @@ export class ShoppingCartComponent implements OnInit {
     } else {
       this.productMap[product.productoId]--;
       this.setQuantityFromShoppingCartItem(product.productoId, quantity - 1);
+      var client=this.storage.get('user');   
+      this.shoppingCart.client=client?client.id:null;
       this.shoppingCartService.updateShoppingCart(this.shoppingCart).subscribe(data => {
         this.storage.set("currentCart", data['payload']);
         this.isLoadingResults = false;

@@ -1,3 +1,36 @@
-<p>
-  orders works!
-</p>
+<br>
+<br>
+
+<div class="col-md-12" style="width: 80%;margin: auto">
+    <h1>Tus órdenes</h1>
+    <br>
+  <div class="card" *ngFor="let order of orders">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <h4 class="card-title">Fecha: {{order.orderDate}}</h4>
+          <!--Text-->
+          <p class="card-text">Estado: {{order.status}}</p>
+        </div>
+        <div class="col-md-3">
+          <h4 class="card-title">Precio: $ {{order.price}}</h4>
+
+          <button class="btn btn-primary waves-light" (click)="goToOrder(order)">
+            Ver detalle
+          </button>
+          
+
+        </div>
+      </div>
+      <br>
+    </div>
+    
+  </div>
+  <mat-card class="example-card">
+      <mat-card-actions>
+        <button class="btn btn-secondary waves-light" (click)="goToMain()">
+          Salir
+        </button>
+      </mat-card-actions>
+    </mat-card>
+</div>

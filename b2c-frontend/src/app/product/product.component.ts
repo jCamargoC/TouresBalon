@@ -27,9 +27,11 @@ export class ProductComponent implements OnInit {
     this.router.navigateByUrl(this.comeFrom);
   }
 
-  addToCart() {
+  addToCart() {    
+    var client=this.storage.get('user');    
     var shoppingCart: ShoppingCart = this.storage.get("currentCart");
     if (shoppingCart) {
+      shoppingCart.client=client?client.id:null;
       var idx: number = -1;
       for (let i = 0; i < shoppingCart.items.length; i++) {
         const item = shoppingCart.items[i];
@@ -73,7 +75,8 @@ export class ProductComponent implements OnInit {
     } else {
       shoppingCart = {
         id: null,
-        client: null,
+        client: client?client.id:null,
+        
         items: [{ id: null, productId: this.product.productoId, quantity: 1 }]
       };
 
