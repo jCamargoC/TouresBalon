@@ -4,7 +4,7 @@
 <div class="col-md-12" style="width: 80%;margin: auto">
     <h1>Tus órdenes</h1>
     <br>
-  <div class="card" *ngFor="let order of orders">
+  <div class="card" *ngFor="let order of orders; let i = index" [attr.data-index]="i">
     <div class="card-body">
       <div class="row">
         <div class="col-md-6">
@@ -15,7 +15,7 @@
         <div class="col-md-3">
           <h4 class="card-title">Precio: $ {{order.price}}</h4>
 
-          <button class="btn btn-primary waves-light" (click)="goToOrder(order)">
+          <button class="btn btn-primary waves-light" (click)="goToOrder(order,i)">
             Ver detalle
           </button>
           

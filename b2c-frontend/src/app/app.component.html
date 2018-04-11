@@ -3,16 +3,6 @@
    <button mat-raised-button routerLink="/">Toures Balón</button>
   
   <span class="example-spacer"></span>
-  <span class="example-spacer">
-    <mat-form-field *ngIf="showSearch">
-      <input matInput placeholder="Buscar" [value]="searchText" (input)="searchText = $event.target.value" (keyup.enter)="search()"/>
-    </mat-form-field>
-    <button *ngIf="showSearch" mat-icon-button (click)="search()">
-      <mat-icon>
-        <i class="fas fa-search"></i>
-      </mat-icon>
-    </button>
-  </span>
   <button *ngIf="!currentUser" mat-icon-button (click)="goToLogin()">
     <mat-icon matTooltip="Sign in" [matTooltipPosition]="'below'">
       <i class="fas fa-user"></i>
@@ -50,6 +40,23 @@
       <span>Sign out</span>
     </button>
   </mat-menu>
+
+</mat-toolbar>
+<mat-toolbar *ngIf="router.url!=='/search'">
+ <span class="example-spacer"></span>
+ <span class="example-spacer">
+   <mat-form-field >
+     <input matInput placeholder="Buscar" [value]="searchText" (input)="searchText = $event.target.value" (keyup.enter)="search()"/>
+   </mat-form-field>
+   <button *ngIf="showSearch" mat-icon-button (click)="search()">
+     <mat-icon>
+       <i class="fas fa-search"></i>
+     </mat-icon>
+   </button>
+ </span>
+
+ 
+
 
 </mat-toolbar>
 <simple-notifications></simple-notifications>

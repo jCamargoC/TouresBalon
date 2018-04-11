@@ -18,24 +18,42 @@ export class ShoppingCartComponent implements OnInit {
   productMap = {};
   shoppingCart: ShoppingCart = this.storage.get("currentCart");
   isLoadingResults = false;
-  constructor(private productService: ProductService, private shoppingCartService: ShoppingCartService, @Inject(LOCAL_STORAGE) private storage: WebStorageService,private router:Router) { }
+  constructor(private productService: ProductService, private shoppingCartService: ShoppingCartService, @Inject(LOCAL_STORAGE) private storage: WebStorageService, private router: Router) { }
 
   ngOnInit() {
-    
+
     if (this.shoppingCart) {
       this.shoppingCartService.getShoppingCartById(this.shoppingCart.id).subscribe(data => {
         this.shoppingCart = data['payload'];
+        this.storage.set("currentCart",this.shoppingCart);
         for (let i = 0; i < this.shoppingCart.items.length; i++) {
           const item = this.shoppingCart.items[i];
           this.productService.getOneProduct(item.productId).subscribe(data => {
             this.productMap[item.productId] = item.quantity;
             this.products.push(data);
-              
+
           });
         }
-    
+
       });
 
+    } else {
+      var user = this.storage.get("user");
+      if (user) {
+        this.shoppingCartService.getShoppingCartByClient(user.id).subscribe(data => {
+          this.shoppingCart = data['payload'];
+          this.storage.set("currentCart",this.shoppingCart);
+          for (let i = 0; i < this.shoppingCart.items.length; i++) {
+            const item = this.shoppingCart.items[i];
+            this.productService.getOneProduct(item.productId).subscribe(data => {
+              this.productMap[item.productId] = item.quantity;
+              this.products.push(data);
+
+            });
+          }
+
+        });
+      }
     }
   }
 
@@ -66,8 +84,8 @@ export class ShoppingCartComponent implements OnInit {
     } else {
       this.productMap[product.productoId]--;
       this.setQuantityFromShoppingCartItem(product.productoId, quantity - 1);
-      var client=this.storage.get('user');   
-      this.shoppingCart.client=client?client.id:null;
+      var client = this.storage.get('user');
+      this.shoppingCart.client = client ? client.id : null;
       this.shoppingCartService.updateShoppingCart(this.shoppingCart).subscribe(data => {
         this.storage.set("currentCart", data['payload']);
         this.isLoadingResults = false;
@@ -127,15 +145,15 @@ export class ShoppingCartComponent implements OnInit {
     return id;
   }
 
-  goBack(){
+  goBack() {
     this.router.navigateByUrl("/search");
   }
 
-  calculateTotalCost(){
-    var totalCost=0;
+  calculateTotalCost() {
+    var totalCost = 0;
     for (let i = 0; i < this.products.length; i++) {
       const item = this.products[i];
-      totalCost+=this.calculateCost(item);
+      totalCost += this.calculateCost(item);
     }
     return totalCost;
   }

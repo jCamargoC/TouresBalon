@@ -62,6 +62,13 @@ public class ShoppingCartRestController extends ControllerBaseContract {
 	}
 	
 	@CrossOrigin
+	@RequestMapping(value="client/{id}", method=RequestMethod.GET,consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<CommonResponse> getByClient(@PathVariable("id") Long id) {
+		ShoppingCart response=shoppingCartService.findByAttribute("client", id);
+		return ResponseFactory.buildResponse(response);
+	}
+	
+	@CrossOrigin
 	@RequestMapping(value="/", method=RequestMethod.GET,consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<CommonResponse> getAll() {
 		List<ShoppingCart> response=shoppingCartService.findAll();

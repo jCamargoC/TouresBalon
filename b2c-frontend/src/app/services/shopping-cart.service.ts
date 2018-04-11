@@ -24,6 +24,16 @@ export class ShoppingCartService {
     return this.http.get<ShoppingCartResponse>(url, httpOptions);
   }
 
+  getShoppingCartByClient(id: number) {
+    const url = Constants.SHOPPING_CART_URL + "client/"+id;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+      })
+    };
+    return this.http.get<ShoppingCartResponse>(url, httpOptions);
+  }
+
   updateShoppingCart(shoppingCart: ShoppingCart) {
     const url = Constants.SHOPPING_CART_URL;
 

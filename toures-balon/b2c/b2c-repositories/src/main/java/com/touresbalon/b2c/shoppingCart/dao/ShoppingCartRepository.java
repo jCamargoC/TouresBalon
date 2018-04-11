@@ -8,4 +8,5 @@ import com.touresbalon.entities.shoppingCart.ShoppingCart;
 @Transactional
 public interface ShoppingCartRepository extends IBaseRepository<ShoppingCart, Long>{
 
+	public ShoppingCart findByClient(Long clientId);
 }

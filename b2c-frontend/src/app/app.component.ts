@@ -12,12 +12,13 @@ export class AppComponent {
   searchText = null;
   showSearch=true;
   currentUser=this.storage.get("user");
-  constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService,private router:Router, private location:Location) {
+  
+  constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService,public router:Router, private location:Location) {
      
   }
   search(){
     this.storage.set("searchText",this.searchText);
-    this.showSearch=false;
+    console.log(this.router.url);//window.location.reload();
     this.router.navigateByUrl('/search');
   }
 
@@ -39,6 +40,11 @@ export class AppComponent {
 
   signOut(){
     this.storage.remove("user");
+    this.storage.remove("searchText");
+    this.storage.remove("comeFrom");
+    this.storage.remove("orders");
+    this.storage.remove("order");
+    this.storage.remove("currentProduct");
     window.location.reload();
     this.router.navigateByUrl("/");
   }
