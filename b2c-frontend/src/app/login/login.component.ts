@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.login.user, this.login.password).subscribe(data => {
       this.storage.set("user",data['payload']);
       var cart=this.storage.get("currentCart");
-      if(cart && cart['client']){
+      if(cart && !cart['client']){
         cart['client']=data['payload'].id;
         this.shopingCartService.updateShoppingCart(cart).subscribe(data=>{
           this.storage.set("currentCart",data['payload']);
