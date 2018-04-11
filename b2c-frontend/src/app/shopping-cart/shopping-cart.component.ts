@@ -25,7 +25,7 @@ export class ShoppingCartComponent implements OnInit {
     if (this.shoppingCart) {
       this.shoppingCartService.getShoppingCartById(this.shoppingCart.id).subscribe(data => {
         this.shoppingCart = data['payload'];
-        this.storage.set("currentCart",this.shoppingCart);
+        this.storage.set("currentCart", this.shoppingCart);
         for (let i = 0; i < this.shoppingCart.items.length; i++) {
           const item = this.shoppingCart.items[i];
           this.productService.getOneProduct(item.productId).subscribe(data => {
@@ -41,17 +41,18 @@ export class ShoppingCartComponent implements OnInit {
       var user = this.storage.get("user");
       if (user) {
         this.shoppingCartService.getShoppingCartByClient(user.id).subscribe(data => {
-          this.shoppingCart = data['payload'];
-          this.storage.set("currentCart",this.shoppingCart);
-          for (let i = 0; i < this.shoppingCart.items.length; i++) {
-            const item = this.shoppingCart.items[i];
-            this.productService.getOneProduct(item.productId).subscribe(data => {
-              this.productMap[item.productId] = item.quantity;
-              this.products.push(data);
+          if (data['payload']) {
+            this.shoppingCart = data['payload'];
+            this.storage.set("currentCart", this.shoppingCart);
+            for (let i = 0; i < this.shoppingCart.items.length; i++) {
+              const item = this.shoppingCart.items[i];
+              this.productService.getOneProduct(item.productId).subscribe(data => {
+                this.productMap[item.productId] = item.quantity;
+                this.products.push(data);
 
-            });
+              });
+            }
           }
-
         });
       }
     }
