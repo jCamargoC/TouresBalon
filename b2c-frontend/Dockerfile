@@ -13,4 +13,4 @@ WORKDIR $HOME
 RUN npm install -g @angular/cli && npm cache clean
 
 # expone el puerto de nodejs
-EXPOSE 4200
+#EXPOSE 4200

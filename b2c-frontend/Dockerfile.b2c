@@ -20,7 +20,7 @@ RUN npm install &&\
 	npm cache clean
 
 # ejecuta el servidor oyendo cualquier direccion y no valida el host
-CMD ["ng", "serve", "--host", "0.0.0.0", "--disable-host-check"]
+ENTRYPOINT ["ng", "serve", "--host", "0.0.0.0", "--disable-host-check"]
 
 # expone el puerto del servidor
 EXPOSE 4200
