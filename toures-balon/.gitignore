@@ -37,3 +37,9 @@
 /common/.project
 /common/.settings
 /common/.classpath
+
+/order-manager/target
+/order-manager/.project
+/order-manager/.settings
+/order-manager/.classpath
+/order-manager/.mvn
