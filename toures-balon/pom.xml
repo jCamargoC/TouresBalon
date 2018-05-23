@@ -10,6 +10,7 @@
 	<modules>
 		<module>b2c</module>
 		<module>common</module>
+		<module>orders-manager</module>
 	</modules>
 	<dependencyManagement>
      <dependencies>
