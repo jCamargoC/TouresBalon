@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema targetNamespace="http://www.touresbalon.com/orders"
+	xmlns:tns="http://www.touresbalon.com/orders"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
+
+	<xs:element name="createOrderRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="saleOrder" type="tns:saleOrder" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="createOrderResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="saleOrder" type="tns:saleOrder" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="saleOrder">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="estado" type="xs:string" />
+			<xs:element minOccurs="0" name="fecha" type="xs:string" />
+			<xs:element minOccurs="0" name="id" type="xs:long" />
+			<xs:element minOccurs="0" name="idCliente" type="xs:long" />
+			<xs:element minOccurs="0" name="idProducto" type="xs:long" />
+			<xs:element minOccurs="0" name="idReserva"
+				type="xs:string" />
+			<xs:element minOccurs="0" name="reservaEspectaculo"
+				type="tns:reserva" />
+			<xs:element minOccurs="0" name="reservaHospedaje"
+				type="tns:reserva" />
+			<xs:element minOccurs="0" name="reservaTransporte"
+				type="tns:reserva" />
+			<xs:element minOccurs="0" name="reservaVuelo"
+				type="tns:reserva" />
+			<xs:element minOccurs="0" name="valor" type="xs:float" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="reserva">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="empresa" type="xs:string" />
+			<xs:element minOccurs="0" name="id" type="xs:long" />
+			<xs:element minOccurs="0" name="idReserva"
+				type="xs:string" />
+			
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
