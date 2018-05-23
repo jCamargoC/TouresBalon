@@ -1,42 +1,40 @@
 version: '3'
 
 services:
-  b2c-frontend:
-   image: touresbalon/b2c-frontend
+  dkc_clientsmanager:
+   image: clientsmanager
    ports:
-     - 4200
+     - 9181
    environment:
-     - SERVICE_PORTS=4200
-#     - COOKIE=SRV insert indirect nocache
+     - SERVICE_PORTS=9181
    deploy:
-     replicas: 3
+     replicas: 2
      update_config:
-       parallelism: 3
+       parallelism: 5
        delay: 10s
      restart_policy:
        condition: on-failure
        max_attempts: 3
        window: 120s
    networks:
-     - web
+     - web2
 
   proxy:
     image: dockercloud/haproxy
     depends_on:
-      - b2c-frontend
+      - dkc_clientsmanager
     environment:
       - BALANCE=leastconn
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - 80:80
-      - 1936:1936
+      - 81:80
     networks:
-      - web
+      - web2
     deploy:
       placement:
         constraints: [node.role == manager]
 
 networks:
-  web:
+  web2:
     driver: overlay

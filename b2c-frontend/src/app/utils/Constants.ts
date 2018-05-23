@@ -1,8 +1,8 @@
 export class Constants{
 
    private static DOT_NET_URL='http://186.147.87.87/';
-   private static CLIENTS_BASE_URL='http://localhost:8181/';
-   private static SHOPPING_CART_BASE_URL='http://localhost:8080/';
+   private static CLIENTS_BASE_URL='http://192.168.0.15:10181/';
+   private static SHOPPING_CART_BASE_URL='http://192.168.0.15:10182/';
     
     public static get CAMPAIGNS_URL(): string { return Constants.DOT_NET_URL+'eas_webapi/api/Campaings'; };
     public static get PRODUCTS_URL(): string { return Constants.DOT_NET_URL+'eas_webapi/api/productos/'; };

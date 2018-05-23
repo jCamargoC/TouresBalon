@@ -19,6 +19,8 @@ WORKDIR $HOME/$APP_NAME
 RUN npm install &&\
 	npm cache clean
 
+RUN npm rebuild node-sass --force
+
 # ejecuta el servidor oyendo cualquier direccion y no valida el host
 ENTRYPOINT ["ng", "serve", "--host", "0.0.0.0", "--disable-host-check"]
 

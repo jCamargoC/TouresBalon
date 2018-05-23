@@ -8,4 +8,4 @@ COPY target/shopping-cart-0.0.1-SNAPSHOT.jar app.jar
 CMD java -jar app.jar
 
 #expone el puerto de escucha del servidor
-EXPOSE 8080
+EXPOSE 9182
