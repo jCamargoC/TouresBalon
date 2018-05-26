@@ -14,5 +14,6 @@ export class Constants{
     public static get COUNTRIES_URL(): string { return '/assets/Countries.json'; };
     public static get ORDERS_URL(): string { return Constants.ORDERS_BASE_URL+'api/ordenes/'; };
     public static get BPEL_CREAR_RESERVA_URL(): string { return Constants.BPEL_URL+'mockBPELCrearReservaBinding'; };
+    public static get BPEL_CANCELAR_RESERVA_URL(): string { return Constants.BPEL_URL+'mockBPELCancelarReservaBinding'; };
 
 }

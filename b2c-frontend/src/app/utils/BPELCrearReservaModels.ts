@@ -108,3 +108,18 @@ export interface reserva{
     idReserva:number;
     empresa:string;
 }
+
+export interface CancelInput{
+    input:input;
+}
+
+export interface input{
+    respuesta?:string;
+    estado?:string;
+    codigo?:string;
+    idReservaPadre?:string;
+    idReservaHospedaje?:string;
+    idReservaTransporte?:string;
+    idReservaEspectaculo?:string;
+    idReservaVuelo?:string;
+}

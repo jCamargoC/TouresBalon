@@ -81,9 +81,10 @@ public class ShoppingCartRestController extends ControllerBaseContract {
 	}
 	
 	@CrossOrigin
-	@RequestMapping(value="/reserve", method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<CommonResponse> reserve(@RequestBody ReserveDTO request) {
+	@RequestMapping(value="/bpel", method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<CommonResponse> invokeBpel(@RequestBody ReserveDTO request) {
 		SOAPInvoker.callSoapWebService(request.getUrl(), request.getAction(), request.getPayload());
 		return ResponseFactory.buildResponse(Boolean.TRUE);
 	}
+	
 }

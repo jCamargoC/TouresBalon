@@ -4,8 +4,11 @@ import { Router } from '@angular/router';
 import { Order } from '../utils/OrdersModels';
 import { NotificationsService } from 'angular2-notifications';
 import { Producto } from '../utils/ProductsModels';
+import { CancelInput } from '../utils/BPELCrearReservaModels';
+import { ShoppingCartService } from '../services/shopping-cart.service';
 
 @Component({
+  providers:[ShoppingCartService],
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html',
   styleUrls: ['./order-detail.component.scss']
@@ -14,7 +17,7 @@ export class OrderDetailComponent implements OnInit {
   order: Order = null;
   index: number = -1;
   productsMap;
-  constructor(private notif: NotificationsService, private router: Router, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
+  constructor(private notif: NotificationsService, private router: Router, @Inject(LOCAL_STORAGE) private storage: WebStorageService,private shoppingCartService:ShoppingCartService) { }
 
   ngOnInit() {
     var orderStored = this.storage.get("order");
@@ -29,23 +32,33 @@ export class OrderDetailComponent implements OnInit {
   }
 
   cancelOrder() {
+    
     if (confirm("¿Está seguro de cancelar esta orden?")) {
-      var orders = this.storage.get("orders");
-      orders.splice(this.index, 1);
-      this.storage.set("orders", orders);
-      this.notif.success(
-        'Éxito',
-        'Orden Cancelada exitosamente',
-        {
-          timeOut: 3000,
-          showProgressBar: true,
-          pauseOnHover: false,
-          clickToClose: true,
-          maxLength: 50,
-          position: ["top", "middle"]
+      const cancelInput:CancelInput={
+        input:{
+          idReservaPadre:this.order.idReserva,
+          idReservaHospedaje:this.order.reservaHospedaje?this.order.reservaHospedaje.idReserva:null,
+          idReservaEspectaculo :this.order.reservaEspectaculo?this.order.reservaEspectaculo.idReserva:null,
+          idReservaTransporte:this.order.reservaTransporte?this.order.reservaTransporte.idReserva:null,
+          idReservaVuelo:this.order.reservaVuelo?this.order.reservaVuelo.idReserva:null
         }
-      );
-      this.goToOrders();
+      }
+      this.shoppingCartService.cancelReserve(cancelInput).subscribe(response=>{
+        this.notif.success(
+          'Éxito',
+          'Se ha enviado la cancelación a las respectivas empresas. Por favor verifique su correo en unos instantes para verificar el estado la operación',
+          {
+            timeOut: 3000,
+            showProgressBar: true,
+            pauseOnHover: false,
+            clickToClose: true,
+            maxLength: 50,
+            position: ["top", "middle"]
+          }
+        );
+        this.goToOrders();
+      });
+      
     }
 
   }
@@ -53,4 +66,6 @@ export class OrderDetailComponent implements OnInit {
   calculatePrice(product:Producto){
     return product.lodging.lodgingCosto+product.transporte.transporteCosto+product.espectaculo.espectaculoId;    
   }
+
+ 
 }

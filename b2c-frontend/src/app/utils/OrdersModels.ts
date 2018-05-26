@@ -5,6 +5,7 @@ export interface Order{
     estado:string;
     idCliente:number;
     idProducto:number;
+    idReserva:string;
     reservaEspectaculo?:Reserva;
     reservaHospedaje?:Reserva;
     reservaVuelo?:Reserva;
