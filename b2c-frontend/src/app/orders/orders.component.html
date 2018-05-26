@@ -8,12 +8,12 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-6">
-          <h4 class="card-title">Fecha: {{order.orderDate}}</h4>
+          <h4 class="card-title">Fecha: {{order.fecha}}</h4>
           <!--Text-->
-          <p class="card-text">Estado: {{order.status}}</p>
+          <p class="card-text">Estado: {{order.estado}}</p>
         </div>
         <div class="col-md-3">
-          <h4 class="card-title">Precio: $ {{order.price}}</h4>
+          <h4 class="card-title">Precio: $ {{order.valor}}</h4>
 
           <button class="btn btn-primary waves-light" (click)="goToOrder(order,i)">
             Ver detalle

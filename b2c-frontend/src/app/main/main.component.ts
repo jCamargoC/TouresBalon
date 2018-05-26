@@ -33,7 +33,6 @@ export class MainComponent implements OnInit {
       console.log(this.campaigns);
       for (var _i = 0; _i < data.length; _i++) {
         var camp = data[_i];
-        console.log(camp);
 
       }
       this.hiddenCarousel = false;

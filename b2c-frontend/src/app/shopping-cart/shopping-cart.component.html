@@ -19,7 +19,7 @@
         </div>
         <div class="col-md-3">
           <h4 class="card-title">$ {{calculateCost(product)}}</h4>
-
+          <div>
           <button mat-icon-button (click)="removeUnit(product)">
             <i class="fas fa-minus"></i>
           </button>
@@ -27,8 +27,18 @@
           <button mat-icon-button (click)="addUnit(product)">
             <i class="fas fa-plus"></i>
           </button>
-
+          </div>
+          <div>
+            <button mat-button (click)="reserveOne(product,true)">
+              <mat-icon>
+                <i class="far fa-credit-card"></i>
+              </mat-icon>
+              <span> Reservar
+              </span>
+            </button>
+          </div>
         </div>
+        
       </div>
     </div>
   </div>
@@ -52,11 +62,11 @@
 <br>
 <mat-card class="example-card">
   <mat-card-actions>
-    <button mat-button (click)="addToCart()">
+    <button mat-button (click)="reserve()">
       <mat-icon>
         <i class="far fa-credit-card"></i>
       </mat-icon>
-      <span> Pagar
+      <span> Reservar
       </span>
     </button>
     <button mat-button (click)="goBack()">Volver</button>

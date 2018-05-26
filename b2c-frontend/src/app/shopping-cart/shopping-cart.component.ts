@@ -3,9 +3,9 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { ShoppingCartService } from '../services/shopping-cart.service';
-import { Producto } from '../utils/ProductsModels';
+import { Producto, Espectaculo } from '../utils/ProductsModels';
 import { ShoppingCart, ShoppingCartResponse } from '../utils/ShoppingCartModels';
-
+import { reservaInput,persona,boletas,hospedaje,transporte,vuelo } from '../utils/BPELCrearReservaModels';
 @Component({
   selector: 'app-shopping-cart',
   providers: [ProductService, ShoppingCartService],
@@ -18,10 +18,22 @@ export class ShoppingCartComponent implements OnInit {
   productMap = {};
   shoppingCart: ShoppingCart = this.storage.get("currentCart");
   isLoadingResults = false;
+  client=this.storage.get("user");
+  persona:persona;
   constructor(private productService: ProductService, private shoppingCartService: ShoppingCartService, @Inject(LOCAL_STORAGE) private storage: WebStorageService, private router: Router) { }
 
   ngOnInit() {
-
+    if(this.client){
+      this.persona={
+        nombre:this.client.names,
+        apellido:this.client.lastNames,
+        idCliente:this.client.id,
+        tipoDoc:"CC",
+        nroDoc:"123456789",
+        correo:this.client.email,
+        tipoCliente:"DORADO"
+      }
+    }
     if (this.shoppingCart) {
       this.shoppingCartService.getShoppingCartById(this.shoppingCart.id).subscribe(data => {
         this.shoppingCart = data['payload'];
@@ -157,5 +169,88 @@ export class ShoppingCartComponent implements OnInit {
       totalCost += this.calculateCost(item);
     }
     return totalCost;
+  }
+
+  findProduct(id:number):Producto {
+    var totalCost = 0;
+    for (let i = 0; i < this.products.length; i++) {
+      const item = this.products[i];
+      if(item.productoId===id){
+        return item;
+      }
+    }
+    return null;
+  }
+
+  reserveOne(product:Producto,showMessage:boolean){
+    const hospedaje:hospedaje={
+      cantidadPersonas:1,
+      empresa:"Hilton",
+      fechaIngreso:"2018/07/02",
+      fechaSalida:"2018/07/06",
+      habitacion:"102",
+      nroHabitaciones:1,
+      tipoHabitacion:"PRESIDENCIAL"
+    }
+    const boletas:boletas={          
+      empresa:"TuBoleta",
+      fecha:"2018/07/03",
+      fila:"a",
+      grada:"12",
+      hora:"12:00",
+      lugar:product.espectaculo.espectaculoNombre,
+      persona:this.persona,
+      sector:"ORIENTAL",
+      silla:"123",
+      tipoEvento:product.espectaculo.espectaculoDescripcion,
+      valor:product.espectaculo.espectaculoCosto
+    }
+    const vuelo:vuelo={
+      destino:product.ciudadDestino.ciudadNombre,
+      empresa:"Avianca",
+      fechaInicio:product.productoDepartureDate.toString(),
+      fechaFin:product.productoArrivalDate.toString(),
+      nroVuelo:product.transporte.transporteNombre,
+      origen:product.ciudadOrigen.ciudadNombre,
+      grupo:"G1",
+      puertaEmbarque:"GATE01",
+      silla:"123"
+    }
+    const reserva:reservaInput={
+      valorReserva:this.calculateCost(product),
+      persona:this.persona,
+      boletas:boletas,
+      hospedaje:hospedaje,
+      vuelo:vuelo          
+    }
+    this.shoppingCartService.reserve(reserva).subscribe(response=>{
+      if(showMessage){
+        var itemId = this.removeShoppingCartItem(product.productoId);
+        this.shoppingCartService.removeItem(this.shoppingCart, itemId).subscribe(data => {
+          this.storage.set("currentCart", data['payload']);
+          this.isLoadingResults = false;
+          this.removeProduct(product.productoId);
+          
+            alert("Se han enviado las peticiones de reserva a las compañías respectivas. Por favor revise su correo más tarde para verificar el estado de su reserva");
+          
+        });
+      }
+    });
+  }
+  reserve(){
+    if(this.client){
+      
+      for(var i=0;i<this.shoppingCart.items.length;i++){
+        
+        var item=this.shoppingCart.items[i];
+        const product:Producto=this.findProduct(item.productId);
+        this.reserveOne(product,false)
+        this.removeShoppingCartItem(item.productId);
+        this.removeProduct(item.productId);
+      }
+      alert("Se han enviado las peticiones de reserva a las compañías respectivas. Por favor revise su correo más tarde para verificar el estado de su reserva");
+    }    
+    
+    
   }
 }

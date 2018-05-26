@@ -25,29 +25,28 @@ export class OrdersComponent implements OnInit {
     if (this.orders) {
       for (let i = 0; i < this.orders.length; i++) {
         const order = this.orders[i];
-        for (let j = 0; j < order.items.length; j++) {
-          const item = order.items[j];
-          if (!this.productsMap[item.product]) {
-            this.productService.getOneProduct(item.product).subscribe(data => {
-              this.productsMap[item.product] = data;
+        
+         
+          if (!this.productsMap[order.idProducto]) {
+            this.productService.getOneProduct(order.idProducto).subscribe(data => {
+              this.productsMap[order.idProducto] = data;
             });
           }
         }
-      }
+      
     } else {
       this.ordersService.getOrders(this.client.id).subscribe(data => {
         this.orders = data;
         this.storage.set("orders",this.orders);
         for (let i = 0; i < this.orders.length; i++) {
           const order = this.orders[i];
-          for (let j = 0; j < order.items.length; j++) {
-            const item = order.items[j];
-            if (!this.productsMap[item.product]) {
-              this.productService.getOneProduct(item.product).subscribe(data => {
-                this.productsMap[item.product] = data;
+        
+            if (!this.productsMap[order.idProducto]) {
+              this.productService.getOneProduct(order.idProducto).subscribe(data => {
+                this.productsMap[order.idProducto] = data;
               });
             }
-          }
+          
         }
       });
     }

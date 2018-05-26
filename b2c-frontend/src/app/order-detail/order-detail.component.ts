@@ -3,6 +3,7 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { Router } from '@angular/router';
 import { Order } from '../utils/OrdersModels';
 import { NotificationsService } from 'angular2-notifications';
+import { Producto } from '../utils/ProductsModels';
 
 @Component({
   selector: 'app-order-detail',
@@ -47,5 +48,9 @@ export class OrderDetailComponent implements OnInit {
       this.goToOrders();
     }
 
+  }
+
+  calculatePrice(product:Producto){
+    return product.lodging.lodgingCosto+product.transporte.transporteCosto+product.espectaculo.espectaculoId;    
   }
 }

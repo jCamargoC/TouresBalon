@@ -1,17 +1,20 @@
 export interface Order{
     id:number;
-    orderDate:Date;
-    price:number;
-    status:string;
-    comments:string;
-    client:number;
-    items:OrderItem[];
+    fecha:string;
+    valor:number;
+    estado:string;
+    idCliente:number;
+    idProducto:number;
+    reservaEspectaculo?:Reserva;
+    reservaHospedaje?:Reserva;
+    reservaVuelo?:Reserva;
+    reservaTransporte?:Reserva;
 }
 
-export interface OrderItem{
+export interface Reserva{
     id:number;
-    product:number;
-    price:number;
-    quantity:number;
+    empresa:string;
+    idReserva:string;
     orderId:number;
+    tiporeserva:string; 
 }

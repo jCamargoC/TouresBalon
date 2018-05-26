@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ShoppingCart, ShoppingCartResponse } from '../utils/ShoppingCartModels'
+import { ShoppingCart, ShoppingCartResponse, ReserveResponse } from '../utils/ShoppingCartModels'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Constants } from '../utils/Constants';
+import { reservaInput } from '../utils/BPELCrearReservaModels';
 
 @Injectable()
 export class ShoppingCartService {
@@ -43,5 +44,40 @@ export class ShoppingCartService {
   removeItem(shoppingCart: ShoppingCart, itemId) {
     const url = Constants.SHOPPING_CART_URL + 'item/' + itemId;
     return this.http.put<ShoppingCartResponse>(url, shoppingCart);
+  }
+
+  reserve(reserva:reservaInput){
+    const url=Constants.SHOPPING_CART_URL + 'reserve';
+    const urlSoap=Constants.BPEL_CREAR_RESERVA_URL;
+    
+    const xmlPayload=this.objectToXml(reserva);
+    const envelope="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns=\"http://xmlns.oracle.com/TouresBalon/TouresBalonProject/BPELCrearReserva\">"
+    + "   <soapenv:Header/><soapenv:Body><ReservaInput>"+xmlPayload+"</ReservaInput></soapenv:Body></soapenv:Envelope>";
+    console.log(envelope);
+    return this.http.post<ReserveResponse>(url, {url:urlSoap,action:"process",payload:envelope});
+  }
+
+  objectToXml(obj) {
+    var xml = '';
+
+    for (var prop in obj) {
+        if (!obj.hasOwnProperty(prop)) {
+            continue;
+        }
+
+        if (obj[prop] == undefined)
+            continue;
+
+        xml += "<" + prop + ">";
+        if (typeof obj[prop] == "object")
+            xml += this.objectToXml(new Object(obj[prop]));
+        else
+            xml += obj[prop];
+
+        xml+="</" + prop + ">";
+        
+    }
+
+    return xml;
   }
 }

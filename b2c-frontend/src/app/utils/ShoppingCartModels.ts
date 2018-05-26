@@ -4,6 +4,11 @@ export interface ShoppingCartResponse{
     payload:ShoppingCart;
 }
 
+export interface ReserveResponse{
+    messageGenerationTime:Date,
+    payload:boolean;
+}
+
 export interface ShoppingCart{
     id:number;
     client:number;

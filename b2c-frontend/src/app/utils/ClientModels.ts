@@ -13,7 +13,8 @@ export interface Client{
 	creditCardNumber: string;
 	status: string;
 	addresses:Address[];
-	password:string;
+	password?:string;
+	clientType?:string;
 }
 
 export interface Address {

@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.touresbalon.b2c.dto.ReserveDTO;
 import com.touresbalon.common.CommonResponse;
 import com.touresbalon.common.ControllerBaseContract;
 import com.touresbalon.common.ResponseFactory;
 import com.touresbalon.common.service.CommonServiceContract;
 import com.touresbalon.entities.shoppingCart.ShoppingCart;
+import com.touresbalon.utils.SOAPInvoker;
 
 @RestController
 @RequestMapping("/shoppingcart")
@@ -76,5 +78,12 @@ public class ShoppingCartRestController extends ControllerBaseContract {
 			ShoppingCart.setItems(null);
 		}
 		return ResponseFactory.buildResponse(response);
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value="/reserve", method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<CommonResponse> reserve(@RequestBody ReserveDTO request) {
+		SOAPInvoker.callSoapWebService(request.getUrl(), request.getAction(), request.getPayload());
+		return ResponseFactory.buildResponse(Boolean.TRUE);
 	}
 }

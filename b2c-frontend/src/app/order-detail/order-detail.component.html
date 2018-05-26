@@ -3,19 +3,84 @@
 
 <div class="col-md-12" style="width: 80%;margin: auto">
   <h1>Orden Nº {{order.id}}</h1>
-  <h4 class="card-title">Fecha: {{order.orderDate}}</h4>
-  <p class="card-text">Estado: {{order.status}}</p>
-  <p class="card-text">Precio: $ {{order.price}}</p>
+  <h4 class="card-title">Fecha: {{order.fecha}}</h4>
+  <p class="card-text">Estado: {{order.estado}}</p>
+  <p class="card-text">Precio: $ {{order.valor}}</p>
   <br>
-  <h4 class="card-title">Items</h4>
+  <h4 class="card-title">Producto</h4>
   <br>
-  <div class="card" *ngFor="let item of order.items">
+  <div class="card">
+    <div class="card-body">
+        
+      <div class="row">
+          <div class="col-md-3">
+              <div class="card">
+                <img class="img-fluid" src="data:image/jpeg;base64,{{productsMap[order.idProducto].productoImagen}}">
+              </div>
+            </div>
+        <div class="col-md-6">
+          <h4 class="card-title">Producto: {{productsMap[order.idProducto].productoNombre}}</h4>
+          <p class="card-text">Descripción: {{productsMap[order.idProducto].productoDescripcion}}</p>
+          <p class="card-text">Precio: $ {{calculatePrice(productsMap[order.idProducto])}}</p>
+        </div>
+      </div>
+      <br>
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <h4 class="card-title">Reservas</h4>
+  <br>
+  <div class="card" *ngIf="order.reservaHospedaje">
     <div class="card-body">
       <div class="row">
         <div class="col-md-6">
-          <h4 class="card-title">Producto: {{productsMap[item.product].productoNombre}}</h4>
-          <p class="card-text">Descripción: {{productsMap[item.product].productoDescripcion}}</p>
-          <p class="card-text">Precio: $ {{item.price}}</p>
+          <h4 class="card-title">Hospedaje</h4>
+          <p class="card-text">Identificador de reserva: {{order.reservaHospedaje.idReserva}}</p>
+          <p class="card-text">Empresa: {{order.reservaHospedaje.empresa}}</p>
+        </div>
+      </div>
+      <br>
+    </div>
+
+  </div>
+ 
+  <div class="card" *ngIf="order.reservaVuelo">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <h4 class="card-title">Transporte aéreo</h4>
+          <p class="card-text">Identificador de reserva: {{order.reservaVuelo.idReserva}}</p>
+          <p class="card-text">Empresa: {{order.reservaVuelo.empresa}}</p>
+        </div>
+      </div>
+      <br>
+    </div>
+
+  </div>
+ 
+  <div class="card" *ngIf="order.reservaEspectaculo">
+    <div class="card-body">
+      <div class="row">
+        
+        <div class="col-md-6">
+          <h4 class="card-title">Espectáculo</h4>
+          <p class="card-text">Identificador de reserva: {{order.reservaEspectaculo.idReserva}}</p>
+          <p class="card-text">Empresa: {{order.reservaEspectaculo.empresa}}</p>
+        </div>
+      </div>
+      <br>
+    </div>
+
+  </div>
+  <div class="card" *ngIf="order.reservaTransporte">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <h4 class="card-title">Transporte terrestre</h4>
+          <p class="card-text">Identificador de reserva: {{order.reservaTransporte.idReserva}}</p>
+          <p class="card-text">Empresa: {{order.reservaTransporte.empresa}}</p>
         </div>
       </div>
       <br>
