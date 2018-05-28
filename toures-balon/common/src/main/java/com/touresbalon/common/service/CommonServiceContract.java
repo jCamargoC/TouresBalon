@@ -78,6 +78,26 @@ public abstract class CommonServiceContract<T extends Object> {
 			throw new BusinessException(ErrorsEnum.REFLECTION_ERROR);
 		}
 	}
+	
+	public List<T> findByAttributeList(String attribute, Object value) {
+		String capitalizedAttr = capitalize(attribute);
+		String methodName = "findBy" + capitalizedAttr;
+		try {
+			Method method = repository.getClass().getMethod(methodName, value.getClass());
+			List<T> response = (List<T>) method.invoke(repository, value);
+			return response;
+		} catch (NoSuchMethodException e) {
+			throw new BusinessException(ErrorsEnum.REFLECTION_ERROR);
+		} catch (SecurityException e) {
+			throw new BusinessException(ErrorsEnum.REFLECTION_ERROR);
+		} catch (IllegalAccessException e) {
+			throw new BusinessException(ErrorsEnum.REFLECTION_ERROR);
+		} catch (IllegalArgumentException e) {
+			throw new BusinessException(ErrorsEnum.REFLECTION_ERROR);
+		} catch (InvocationTargetException e) {
+			throw new BusinessException(ErrorsEnum.REFLECTION_ERROR);
+		}
+	}
 
 	private String capitalize(String string) {
 		return Character.toUpperCase(string.charAt(0)) + string.substring(1);

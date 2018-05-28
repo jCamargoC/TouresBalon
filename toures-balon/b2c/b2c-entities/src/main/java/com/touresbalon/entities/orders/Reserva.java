@@ -20,6 +20,9 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.xml.bind.annotation.XmlTransient;
 
 
@@ -62,6 +65,7 @@ public class Reserva {
     @OneToOne(optional=true,fetch=FetchType.LAZY)
 	@JoinColumn(name="ordenId",unique=false,foreignKey=@ForeignKey(name="fk_Reserva_orderId_SaleOrder_id"))
     @XmlTransient
+    @JsonIgnore
     protected SaleOrder orden;
 
     /**
