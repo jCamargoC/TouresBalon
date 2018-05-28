@@ -1,0 +1,36 @@
+<schema xmlns:tns="http://xmlns.oracle.com/TouresBalon/TouresBalonProject/BPELCancelarReserva" xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/TouresBalon/TouresBalonProject/BPELCancelarReserva">
+<element name="ReservaInput">
+<complexType>
+<sequence>
+<element name="input" type="tns:Reservas"/>
+</sequence>
+</complexType>
+</element>
+<complexType name="Response">
+<sequence>
+<element name="respuesta" type="string"/>
+<element name="estado" type="string"/>
+<element name="codigo" type="string"/>
+<element name="mensjae" type="string"/>
+</sequence>
+</complexType>
+<element name="ReservaOutput">
+<complexType>
+<sequence>
+<element name="output" type="tns:Response"/>
+</sequence>
+</complexType>
+</element>
+<complexType name="Reservas">
+<sequence>
+<element name="respuesta" type="string"/>
+<element name="estado" type="string"/>
+<element name="codigo" type="string"/>
+<element name="idReservaPadre" type="string"/>
+<element name="idReservaHospedaje" type="string"/>
+<element name="idReservaTransporte" type="string"/>
+<element name="idReservaEspectaculo" type="string"/>
+<element name="idReservaVuelo" type="string"/>
+</sequence>
+</complexType>
+</schema>

@@ -18,7 +18,7 @@ export interface persona{
     nroDoc?:string;
     correo?:string;
     genero?:string;
-    titular?:string;
+    titular?:boolean;
     nroTelefono?:string;
     tarjeta?:tarjeta;
     tipoCliente?:string;
@@ -105,7 +105,7 @@ export interface reservas{
 }
 
 export interface reserva{
-    idReserva:number;
+    idReserva:string;
     empresa:string;
 }
 
@@ -122,4 +122,9 @@ export interface input{
     idReservaTransporte?:string;
     idReservaEspectaculo?:string;
     idReservaVuelo?:string;
+}
+
+export interface BpelCrearOrderResponse{
+    messageGenerationTime:Date,
+    payload:ReservaOutput;
 }

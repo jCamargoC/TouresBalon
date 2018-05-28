@@ -1,0 +1,127 @@
+<schema xmlns:tns="http://xmlns.oracle.com/TouresBalon/TouresBalonProject/BPELCrearReserva" xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/TouresBalon/TouresBalonProject/BPELCrearReserva">
+<element name="ReservaInput">
+<complexType>
+<sequence>
+<element name="idReserva" type="string"/>
+<element name="idOrden" type="string"/>
+<element name="valorReserva" type="float"/>
+<element name="persona" type="tns:Persona"/>
+<element name="vuelo" type="tns:Vuelo"/>
+<element name="fechaReserva" type="string"/>
+<element name="estadoReserva" type="string"/>
+<element name="boletas" type="tns:Boleta"/>
+<element name="hospedaje" type="tns:Hospedaje"/>
+<element name="transporte" type="tns:Transporte"/>
+</sequence>
+</complexType>
+</element>
+<complexType name="Boleta">
+<sequence>
+<element name="persona" type="tns:Persona"/>
+<element name="tipoEvento" type="string"/>
+<element name="lugar" type="string"/>
+<element name="sector" type="string"/>
+<element name="fila" type="string"/>
+<element name="silla" type="string"/>
+<element name="grada" type="string"/>
+<element name="idBoleta" type="string"/>
+<element name="fecha" type="string"/>
+<element name="hora" type="string"/>
+<element name="valor" type="float"/>
+<element name="hayEvento" type="boolean"/>
+<element name="empresa" type="string"/>
+</sequence>
+</complexType>
+<complexType name="Transporte">
+<sequence>
+<element name="idReserva" type="string"/>
+<element name="fechaInicio" type="date"/>
+<element name="fechaFin" type="date"/>
+<element name="origen" type="string"/>
+<element name="destino" type="string"/>
+<element name="puestos" type="integer"/>
+<element name="hayTransporte" type="boolean"/>
+<element name="empresa" type="string"/>
+</sequence>
+</complexType>
+<complexType name="Hospedaje">
+<sequence>
+<element name="idReserva" type="string"/>
+<element name="habitacion" type="string"/>
+<element name="hotel" type="string"/>
+<element name="tipoHabitacion" type="string"/>
+<element name="estadoReserva" type="string"/>
+<element name="fechaReserva" type="string"/>
+<element name="fechaIngreso" type="string"/>
+<element name="fechaSalida" type="string"/>
+<element name="nroHabitaciones" type="integer"/>
+<element name="cantidadPersonas" type="integer"/>
+<element name="hayHospedaje" type="boolean"/>
+<element name="empresa" type="string"/>
+</sequence>
+</complexType>
+<complexType name="Vuelo">
+<sequence>
+<element name="idReserva" type="string"/>
+<element name="silla" type="string"/>
+<element name="nroVuelo" type="string"/>
+<element name="origen" type="string"/>
+<element name="destino" type="string"/>
+<element name="fechaInicio" type="string"/>
+<element name="fechaFin" type="string"/>
+<element name="puertaEmbarque" type="string"/>
+<element name="grupo" type="string"/>
+<element name="hayVuelo" type="boolean"/>
+<element name="empresa" type="string"/>
+</sequence>
+</complexType>
+<complexType name="Tarjeta">
+<sequence>
+<element name="franquicia" type="string"/>
+<element name="nroTarjeta" type="string"/>
+<element name="fechaVencimiento" type="string"/>
+<element name="membresia" type="string"/>
+<element name="codigoSeguridad" type="string"/>
+</sequence>
+</complexType>
+<complexType name="Persona">
+<sequence>
+<element name="idCliente" type="string"/>
+<element name="nombre" type="string"/>
+<element name="apellido" type="string"/>
+<element name="tipoDoc" type="string"/>
+<element name="nroDoc" type="string"/>
+<element name="correo" type="string"/>
+<element name="genero" type="string"/>
+<element name="titular" type="boolean"/>
+<element name="nroTelefono" type="string"/>
+<element name="tarjeta" type="tns:Tarjeta"/>
+<element name="tipoCliente" type="string"/>
+</sequence>
+</complexType>
+<element name="ReservaOutput">
+<complexType>
+<sequence>
+<element name="response" type="tns:Reservas"/>
+</sequence>
+</complexType>
+</element>
+<complexType name="Reservas">
+<sequence>
+<element name="respuesta" type="string"/>
+<element name="estado" type="string"/>
+<element name="codigo" type="string"/>
+<element name="idReservaPadre" type="tns:Reserva"/>
+<element name="idReservaHospedaje" type="tns:Reserva"/>
+<element name="idReservaTransporte" type="tns:Reserva"/>
+<element name="idReservaEspectaculo" type="tns:Reserva"/>
+<element name="idReservaVuelo" type="tns:Reserva"/>
+</sequence>
+</complexType>
+<complexType name="Reserva">
+<sequence>
+<element name="idReserva" type="string"/>
+<element name="empresa" type="string"/>
+</sequence>
+</complexType>
+</schema>

@@ -6,9 +6,10 @@ import { NotificationsService } from 'angular2-notifications';
 import { Producto } from '../utils/ProductsModels';
 import { CancelInput } from '../utils/BPELCrearReservaModels';
 import { ShoppingCartService } from '../services/shopping-cart.service';
+import { OrdersService } from '../services/orders.service';
 
 @Component({
-  providers:[ShoppingCartService],
+  providers:[ShoppingCartService,OrdersService],
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html',
   styleUrls: ['./order-detail.component.scss']
@@ -17,7 +18,7 @@ export class OrderDetailComponent implements OnInit {
   order: Order = null;
   index: number = -1;
   productsMap;
-  constructor(private notif: NotificationsService, private router: Router, @Inject(LOCAL_STORAGE) private storage: WebStorageService,private shoppingCartService:ShoppingCartService) { }
+  constructor(private notif: NotificationsService, private router: Router, @Inject(LOCAL_STORAGE) private storage: WebStorageService,private shoppingCartService:ShoppingCartService,private ordersService:OrdersService) { }
 
   ngOnInit() {
     var orderStored = this.storage.get("order");
@@ -44,6 +45,7 @@ export class OrderDetailComponent implements OnInit {
         }
       }
       this.shoppingCartService.cancelReserve(cancelInput).subscribe(response=>{
+        this.ordersService.updateState(this.order.id,"CANCELADA");
         this.notif.success(
           'Éxito',
           'Se ha enviado la cancelación a las respectivas empresas. Por favor verifique su correo en unos instantes para verificar el estado la operación',

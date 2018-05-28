@@ -18,6 +18,25 @@
             <mat-form-field class="example-full-width">
               <input id="lastNames" name="lastNames" matInput placeholder="Apellidos" required [(ngModel)]="client.lastNames">
             </mat-form-field>
+            <mat-form-field>
+              <mat-select placeholder="Tipo de identificación" [(value)]="client.documentType">
+                <mat-option value="CC">
+                  Cédula de ciudadanía
+                </mat-option>
+                <mat-option value="TI">
+                  Tarjeta de identidad
+                </mat-option>
+                <mat-option value="CE">
+                  Cédula de extranjería
+                </mat-option>
+                <mat-option value="P">
+                  Pasaporte
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input id="documentNumber" name="documentNumber" matInput placeholder="Número de identificación" [(ngModel)]="client.documentNumber">
+            </mat-form-field>
             <mat-form-field class="example-full-width">
               <input id="phoneNumber" name="phoneNumber" matInput placeholder="Teléfono" [(ngModel)]="client.phoneNumber">
             </mat-form-field>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ShoppingCart, ShoppingCartResponse, ReserveResponse } from '../utils/ShoppingCartModels'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Constants } from '../utils/Constants';
-import { reservaInput, CancelInput } from '../utils/BPELCrearReservaModels';
+import { reservaInput, CancelInput, ReservaOutput, BpelCrearOrderResponse } from '../utils/BPELCrearReservaModels';
 
 @Injectable()
 export class ShoppingCartService {
@@ -47,18 +47,18 @@ export class ShoppingCartService {
   }
 
   reserve(reserva:reservaInput){
-    const url=Constants.SHOPPING_CART_URL + 'bpel';
+    const url=Constants.SHOPPING_CART_URL + 'bpel/create';
     const urlSoap=Constants.BPEL_CREAR_RESERVA_URL;
     
     const xmlPayload=this.objectToXml(reserva);
     const envelope="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns=\"http://xmlns.oracle.com/TouresBalon/TouresBalonProject/BPELCrearReserva\">"
     + "   <soapenv:Header/><soapenv:Body><ReservaInput>"+xmlPayload+"</ReservaInput></soapenv:Body></soapenv:Envelope>";
     console.log(envelope);
-    return this.http.post<ReserveResponse>(url, {url:urlSoap,action:"process",payload:envelope});
+    return this.http.post<BpelCrearOrderResponse>(url, {url:urlSoap,action:"process",payload:envelope});
   }
 
   cancelReserve(input:CancelInput){
-    const url=Constants.SHOPPING_CART_URL + 'bpel';
+    const url=Constants.SHOPPING_CART_URL + 'bpel/cancel';
     const urlSoap=Constants.BPEL_CANCELAR_RESERVA_URL;
     
     const xmlPayload=this.objectToXml(input);

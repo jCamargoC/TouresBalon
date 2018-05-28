@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.oracle.xmlns.touresbalon.touresbalonproject.bpelcrearreserva.ReservaOutput;
 import com.touresbalon.b2c.dto.ReserveDTO;
 import com.touresbalon.common.CommonResponse;
 import com.touresbalon.common.ControllerBaseContract;
@@ -81,10 +82,17 @@ public class ShoppingCartRestController extends ControllerBaseContract {
 	}
 	
 	@CrossOrigin
-	@RequestMapping(value="/bpel", method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/bpel/create", method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<CommonResponse> crearReserva(@RequestBody ReserveDTO request) {
+		ReservaOutput response=SOAPInvoker.callSoapWebService(request.getUrl(), request.getAction(), request.getPayload(),ReservaOutput.class);
+		return ResponseFactory.buildResponse(response);
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value="/bpel/cancel", method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<CommonResponse> invokeBpel(@RequestBody ReserveDTO request) {
-		SOAPInvoker.callSoapWebService(request.getUrl(), request.getAction(), request.getPayload());
-		return ResponseFactory.buildResponse(Boolean.TRUE);
+		com.oracle.xmlns.touresbalon.touresbalonproject.bpelcancelarreserva.ReservaOutput response=SOAPInvoker.callSoapWebService(request.getUrl(), request.getAction(), request.getPayload(),com.oracle.xmlns.touresbalon.touresbalonproject.bpelcancelarreserva.ReservaOutput.class);
+		return ResponseFactory.buildResponse(response);
 	}
 	
 }

@@ -1,6 +1,6 @@
 export interface Order{
-    id:number;
-    fecha:string;
+    id?:number;
+    fecha?:string;
     valor:number;
     estado:string;
     idCliente:number;
@@ -13,9 +13,9 @@ export interface Order{
 }
 
 export interface Reserva{
-    id:number;
-    empresa:string;
-    idReserva:string;
-    orderId:number;
-    tiporeserva:string; 
+    id?:number;
+    empresa?:string;
+    idReserva?:string;
+    orderId?:number;
+    tiporeserva?:string; 
 }

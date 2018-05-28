@@ -18,6 +18,25 @@
             <mat-form-field class="example-full-width">
               <input id="lastNames" name="lastNames" matInput placeholder="Apellidos" required [(ngModel)]="client.lastNames">
             </mat-form-field>
+            <mat-form-field>
+              <mat-select placeholder="Tipo de identificación" [(value)]="client.documentType">
+                <mat-option value="CC">
+                  Cédula de ciudadanía
+                </mat-option>
+                <mat-option value="TI">
+                  Tarjeta de identidad
+                </mat-option>
+                <mat-option value="CE">
+                  Cédula de extranjería
+                </mat-option>
+                <mat-option value="P">
+                  Pasaporte
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input id="documentNumber" name="documentNumber" matInput placeholder="Número de identificación" [(ngModel)]="client.documentNumber">
+            </mat-form-field>
             <mat-form-field class="example-full-width">
               <input id="phoneNumber" name="phoneNumber" matInput placeholder="Teléfono" [(ngModel)]="client.phoneNumber">
             </mat-form-field>
@@ -42,6 +61,19 @@
             </mat-form-field>
             <mat-form-field class="example-full-width">
               <input id="password" name="password" matInput type="password" placeholder="Passsword" required [(ngModel)]="client.password">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select placeholder="Tipo de cliente" [(value)]="client.clientType">
+                <mat-option value="PLATINO">
+                  Platino
+                </mat-option>
+                <mat-option value="DORADO">
+                  Dorado
+                </mat-option>
+                <mat-option value="PLATEADO">
+                  Plateado
+                </mat-option>  
+              </mat-select>             
             </mat-form-field>
           </mat-card>
         </div>

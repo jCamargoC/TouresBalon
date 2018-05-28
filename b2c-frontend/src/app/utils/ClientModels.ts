@@ -15,6 +15,9 @@ export interface Client{
 	addresses:Address[];
 	password?:string;
 	clientType?:string;
+	documentNumber?:string;
+	documentType?:string;
+	
 }
 
 export interface Address {

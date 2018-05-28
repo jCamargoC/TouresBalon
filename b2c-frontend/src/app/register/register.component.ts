@@ -32,8 +32,9 @@ export class RegisterComponent implements OnInit {
         Validators.required
       ]),
       'lastNames': new FormControl(this.client.lastNames, Validators.required),
-      'phoneNumber': new FormControl(this.client.phoneNumber),
-
+      'documentNumber':new FormControl(this.client.documentNumber),
+      'phoneNumber': new FormControl(this.client.phoneNumber)
+      
     });
   }
 

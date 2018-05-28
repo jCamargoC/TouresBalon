@@ -54,6 +54,12 @@ public class Client implements Serializable {
 	@Column(name = "cl_password")	
 	@JsonDeserialize(using=EncryptDeserializer.class)	
 	private String password;
+	@Column(name = "cl_clientType")	
+	private String clientType;
+	@Column(name = "cl_document_type")	
+	private String documentType;
+	@Column(name = "cl_document_number")	
+	private String documentNumber;
 
 	public String getPassword() {
 		return password;
@@ -133,6 +139,30 @@ public class Client implements Serializable {
 
 	public void setStatus(ClientStatus status) {
 		this.status = status;
+	}
+
+	public String getClientType() {
+		return clientType;
+	}
+
+	public void setClientType(String clientType) {
+		this.clientType = clientType;
+	}
+
+	public String getDocumentType() {
+		return documentType;
+	}
+
+	public void setDocumentType(String documentType) {
+		this.documentType = documentType;
+	}
+
+	public String getDocumentNumber() {
+		return documentNumber;
+	}
+
+	public void setDocumentNumber(String documentNumber) {
+		this.documentNumber = documentNumber;
 	}
 
 }
