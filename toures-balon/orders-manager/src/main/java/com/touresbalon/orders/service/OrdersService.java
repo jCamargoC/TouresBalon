@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.touresbalon.common.service.CommonServiceContract;
+import com.touresbalon.entities.orders.Reserva;
 import com.touresbalon.entities.orders.SaleOrder;
 import com.touresbalon.orders.dao.ReservaRepository;
 
@@ -18,22 +19,10 @@ public class OrdersService extends CommonServiceContract<SaleOrder> {
 	@Override
 	public SaleOrder postSave(SaleOrder object) {
 		if (object != null) {
-			if (object.getReservaEspectaculo() != null) {
-				object.getReservaEspectaculo().setOrden(object);
-				reservaRepository.save(object.getReservaEspectaculo());
-			}
-			if (object.getReservaHospedaje() != null) {
-				object.getReservaHospedaje().setOrden(object);
-				reservaRepository.save(object.getReservaHospedaje());
-			}
-			if (object.getReservaTransporte() != null) {
-				object.getReservaTransporte().setOrden(object);
-				reservaRepository.save(object.getReservaTransporte());
-			}
-			if (object.getReservaVuelo() != null) {
-				object.getReservaVuelo().setOrden(object);
-				reservaRepository.save(object.getReservaVuelo());
-			}
+			for(Reserva reserva:object.getReservas()) {
+				reserva.setOrden(object);
+				reservaRepository.save(reserva);
+			}			
 		}
 		return object;
 	}
@@ -46,18 +35,9 @@ public class OrdersService extends CommonServiceContract<SaleOrder> {
 	@Override
 	public boolean deleteAssociatedObjects(SaleOrder object) {
 		if (object != null) {
-			if (object.getReservaEspectaculo() != null) {				
-				reservaRepository.delete(object.getReservaEspectaculo());
-			}
-			if (object.getReservaHospedaje() != null) {				
-				reservaRepository.delete(object.getReservaHospedaje());
-			}
-			if (object.getReservaTransporte() != null) {				
-				reservaRepository.delete(object.getReservaTransporte());
-			}
-			if (object.getReservaVuelo() != null) {				
-				reservaRepository.delete(object.getReservaVuelo());
-			}
+			for(Reserva reserva:object.getReservas()) {
+				reservaRepository.delete(reserva);
+			}			
 		}
 		return Boolean.TRUE;
 	}

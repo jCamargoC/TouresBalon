@@ -36,7 +36,7 @@ export class OrdersComponent implements OnInit {
       
     } else {
       this.ordersService.getOrders(this.client.id).subscribe(data => {
-        this.orders = data;
+        this.orders = data.payload;
         this.storage.set("orders",this.orders);
         for (let i = 0; i < this.orders.length; i++) {
           const order = this.orders[i];

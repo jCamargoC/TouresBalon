@@ -245,47 +245,37 @@ export class ShoppingCartComponent implements OnInit {
           idReserva: response.payload.response.idReservaPadre.idReserva,
           idCliente: this.client.id,
           idProducto: product.productoId,
-          valor: this.calculateCost(product),
-          id:123,
-          fecha:'2018/12/12',
+          valor: this.calculateCost(product)
+          
         }
+        var reservas=[];
         if (response.payload.response.idReservaEspectaculo) {
           var reservaEspectaculo: Reserva = {
             empresa: response.payload.response.idReservaEspectaculo.empresa,
             idReserva: response.payload.response.idReservaEspectaculo.idReserva,
-            tiporeserva: "ESPECTACULO",
-            id:1,
-            orderId:123
+            tipoReserva: "ESPECTACULO"
+            
           };
-          order.reservaEspectaculo=reservaEspectaculo;
-        }else{
-          order.reservaEspectaculo=null
+          reservas.push(reservaEspectaculo);
         }
         if (response.payload.response.idReservaHospedaje) {
           var reservaHospedaje: Reserva = {
             empresa: response.payload.response.idReservaHospedaje.empresa,
             idReserva: response.payload.response.idReservaHospedaje.idReserva,
-            tiporeserva: "HOSPEDAJE",
-            id:1,
-            orderId:123
+            tipoReserva: "HOSPEDAJE"
           };
-          order.reservaHospedaje=reservaHospedaje;
-        }else{
-          order.reservaHospedaje=null
+          reservas.push(reservaHospedaje);
         }
         if (response.payload.response.idReservaVuelo) {
           var reservaVuelo: Reserva = {
             empresa: response.payload.response.idReservaVuelo.empresa,
-            idReserva: response.payload.response.idReservaVuelo.idReserva,
-            tiporeserva: "VUELO",
-            id:1,
-            orderId:123
+            idReserva: response.payload.response.idReservaVuelo.idReserva.replace("@ID:",""),
+            tipoReserva: "VUELO"
             
           };
-          order.reservaVuelo=reservaVuelo;
-        }else{
-          order.reservaVuelo=null;
+          reservas.push(reservaVuelo);
         }
+        order.reservas=reservas;
         /*if (response.payload.response.idReservaTransporte) {
           var reservaTransporte: Reserva = {
             empresa: response.payload.response.idReservaTransporte.empresa,
@@ -296,7 +286,7 @@ export class ShoppingCartComponent implements OnInit {
           };
           order.reservaTransporte=reservaTransporte;
         }*/
-        order.reservaTransporte=null;
+        
         this.ordersService.createOrder(order).subscribe(response => {
           if (showMessage) {
             var itemId = this.removeShoppingCartItem(product.productoId);

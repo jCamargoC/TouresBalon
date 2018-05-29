@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { Router } from '@angular/router';
-import { Order } from '../utils/OrdersModels';
+import { Order, Reserva } from '../utils/OrdersModels';
 import { NotificationsService } from 'angular2-notifications';
 import { Producto } from '../utils/ProductsModels';
 import { CancelInput } from '../utils/BPELCrearReservaModels';
@@ -17,7 +17,9 @@ import { OrdersService } from '../services/orders.service';
 export class OrderDetailComponent implements OnInit {
   order: Order = null;
   index: number = -1;
+  reservasMap={};
   productsMap;
+  canceled=false;
   constructor(private notif: NotificationsService, private router: Router, @Inject(LOCAL_STORAGE) private storage: WebStorageService,private shoppingCartService:ShoppingCartService,private ordersService:OrdersService) { }
 
   ngOnInit() {
@@ -25,11 +27,19 @@ export class OrderDetailComponent implements OnInit {
     this.order = orderStored['order'];
     this.productsMap = orderStored['productsMap'];
     this.index = orderStored['index'];
+    if(this.order){
+      for(var i=0;i<this.order.reservas.length;i++){
+        var reserva:Reserva=this.order.reservas[i];
+        this.reservasMap[reserva.tipoReserva]=reserva;
+      }
+    }
   }
 
   goToOrders() {
+    
     this.storage.remove("order");
-    this.router.navigateByUrl("/orders")
+    this.storage.remove("orders");
+    this.router.navigateByUrl("/")
   }
 
   cancelOrder() {
@@ -37,18 +47,24 @@ export class OrderDetailComponent implements OnInit {
     if (confirm("¿Está seguro de cancelar esta orden?")) {
       const cancelInput:CancelInput={
         input:{
-          idReservaPadre:this.order.idReserva,
-          idReservaHospedaje:this.order.reservaHospedaje?this.order.reservaHospedaje.idReserva:null,
-          idReservaEspectaculo :this.order.reservaEspectaculo?this.order.reservaEspectaculo.idReserva:null,
-          idReservaTransporte:this.order.reservaTransporte?this.order.reservaTransporte.idReserva:null,
-          idReservaVuelo:this.order.reservaVuelo?this.order.reservaVuelo.idReserva:null
+          codigo:"c123",
+          estado:"EN CANCELACION",
+          respuesta:"Cancelando",          
+          idReservaPadre:"R12344",
+          idReservaHospedaje:this.reservasMap["HOSPEDAJE"]?this.reservasMap["HOSPEDAJE"].idReserva:null,
+          idReservaEspectaculo :this.reservasMap["ESPECTACULO"]?this.reservasMap["ESPECTACULO"].idReserva:null,
+          idReservaTransporte:this.reservasMap["TRANSPORTE"]?this.reservasMap["TRANSPORTE"].idReserva:null,
+          idReservaVuelo:this.reservasMap["VUELO"]?this.reservasMap["VUELO"].idReserva:null
         }
       }
       this.shoppingCartService.cancelReserve(cancelInput).subscribe(response=>{
-        this.ordersService.updateState(this.order.id,"CANCELADA");
+        this.order.estado="CANCELADA";
+        this.ordersService.updateState(this.order).subscribe(response=>{
+          
+        });
         this.notif.success(
           'Éxito',
-          'Se ha enviado la cancelación a las respectivas empresas. Por favor verifique su correo en unos instantes para verificar el estado la operación',
+          'Se ha cancelado la orden exitosamente',
           {
             timeOut: 3000,
             showProgressBar: true,
@@ -58,6 +74,7 @@ export class OrderDetailComponent implements OnInit {
             position: ["top", "middle"]
           }
         );
+        this.canceled=true;
         this.goToOrders();
       });
       

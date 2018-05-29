@@ -23,12 +23,17 @@ public class SOAPInvoker {
 			SOAPConnection soapConnection = soapConnectionFactory.createConnection();
 
 			SOAPMessage soapMsg=soapConnection.call(createSOAPRequest(soapAction, envelope), soapEndpointUrl);
-			
-			Unmarshaller m=JAXBContext.newInstance(clazz).createUnmarshaller();
-			
-			T obj=(T)m.unmarshal(soapMsg.getSOAPBody().extractContentAsDocument());
-			return obj;
+			System.out.println("Response SOAP Message:");
+			if(soapMsg!=null){
+				soapMsg.writeTo(System.out);
+				Unmarshaller m=JAXBContext.newInstance(clazz).createUnmarshaller();
+				
+				T obj=(T)m.unmarshal(soapMsg.getSOAPBody().extractContentAsDocument());
+				return obj;
+			}
+			return null;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new BusinessException(ErrorsEnum.BPEL_INVOKE_ERROR);
 		}
 		

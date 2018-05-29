@@ -30,68 +30,32 @@
   </div>
   <br>
   <br>
-  <h4 class="card-title">Reservas</h4>
-  <br>
-  <div class="card" *ngIf="order.reservaHospedaje">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-6">
-          <h4 class="card-title">Hospedaje</h4>
-          <p class="card-text">Identificador de reserva: {{order.reservaHospedaje.idReserva}}</p>
-          <p class="card-text">Empresa: {{order.reservaHospedaje.empresa}}</p>
-        </div>
-      </div>
+  <h4 class="card-title" *ngIf="order.estado!=='RECHAZADA'">Reservas</h4>
+  
+  <div *ngIf="order.estado!=='RECHAZADA'">
       <br>
-    </div>
-
-  </div>
- 
-  <div class="card" *ngIf="order.reservaVuelo">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-6">
-          <h4 class="card-title">Transporte aéreo</h4>
-          <p class="card-text">Identificador de reserva: {{order.reservaVuelo.idReserva}}</p>
-          <p class="card-text">Empresa: {{order.reservaVuelo.empresa}}</p>
+    <div class="card" *ngFor="let reserva of order.reservas">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h4 class="card-title">Tipo de reserva: {{reserva.tipoReserva}}</h4>
+            <p class="card-text">Identificador de reserva: {{reserva.idReserva}}</p>
+            <p class="card-text">Empresa: {{reserva.empresa}}</p>
+          </div>
         </div>
+        <br>
       </div>
-      <br>
+  
     </div>
-
+    <br>
+    <br>
   </div>
- 
-  <div class="card" *ngIf="order.reservaEspectaculo">
-    <div class="card-body">
-      <div class="row">
-        
-        <div class="col-md-6">
-          <h4 class="card-title">Espectáculo</h4>
-          <p class="card-text">Identificador de reserva: {{order.reservaEspectaculo.idReserva}}</p>
-          <p class="card-text">Empresa: {{order.reservaEspectaculo.empresa}}</p>
-        </div>
-      </div>
-      <br>
-    </div>
+  
 
-  </div>
-  <div class="card" *ngIf="order.reservaTransporte">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-6">
-          <h4 class="card-title">Transporte terrestre</h4>
-          <p class="card-text">Identificador de reserva: {{order.reservaTransporte.idReserva}}</p>
-          <p class="card-text">Empresa: {{order.reservaTransporte.empresa}}</p>
-        </div>
-      </div>
-      <br>
-    </div>
 
-  </div>
-  <br>
-  <br>
   <mat-card class="example-card">
     <mat-card-actions>
-      <button class="btn btn-primary waves-light" (click)="cancelOrder()">
+      <button *ngIf="order.estado!=='CANCELADA' && order.estado!=='RECHAZADA'" class="btn btn-primary waves-light" (click)="cancelOrder()">
         Cancelar orden
       </button>
       <button class="btn btn-secondary waves-light" (click)="goToOrders()">

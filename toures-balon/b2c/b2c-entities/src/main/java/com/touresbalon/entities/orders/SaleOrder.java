@@ -10,13 +10,14 @@ package com.touresbalon.entities.orders;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -81,14 +82,8 @@ public class SaleOrder implements Serializable{
     protected Long idCliente;
     protected Long idProducto;
     protected String idReserva;
-    @OneToOne(optional=true,mappedBy="orden",fetch=FetchType.LAZY)
-    protected Reserva reservaEspectaculo;
-    @OneToOne(optional=true,mappedBy="orden",fetch=FetchType.LAZY)
-    protected Reserva reservaHospedaje;
-    @OneToOne(optional=true,mappedBy="orden",fetch=FetchType.LAZY)
-    protected Reserva reservaTransporte;
-    @OneToOne(optional=true,mappedBy="orden",fetch=FetchType.LAZY)
-    protected Reserva reservaVuelo;
+    @OneToMany(mappedBy="orden",fetch=FetchType.EAGER)
+    protected List<Reserva> reservas;    
     protected Float valor;
 
     /**
@@ -243,8 +238,8 @@ public class SaleOrder implements Serializable{
      *     {@link Reserva }
      *     
      */
-    public Reserva getReservaEspectaculo() {
-        return reservaEspectaculo;
+    public List<Reserva> getReservas() {
+        return reservas;
     }
 
     /**
@@ -255,80 +250,8 @@ public class SaleOrder implements Serializable{
      *     {@link Reserva }
      *     
      */
-    public void setReservaEspectaculo(Reserva value) {
-        this.reservaEspectaculo = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad reservaHospedaje.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Reserva }
-     *     
-     */
-    public Reserva getReservaHospedaje() {
-        return reservaHospedaje;
-    }
-
-    /**
-     * Define el valor de la propiedad reservaHospedaje.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Reserva }
-     *     
-     */
-    public void setReservaHospedaje(Reserva value) {
-        this.reservaHospedaje = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad reservaTransporte.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Reserva }
-     *     
-     */
-    public Reserva getReservaTransporte() {
-        return reservaTransporte;
-    }
-
-    /**
-     * Define el valor de la propiedad reservaTransporte.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Reserva }
-     *     
-     */
-    public void setReservaTransporte(Reserva value) {
-        this.reservaTransporte = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad reservaVuelo.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Reserva }
-     *     
-     */
-    public Reserva getReservaVuelo() {
-        return reservaVuelo;
-    }
-
-    /**
-     * Define el valor de la propiedad reservaVuelo.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Reserva }
-     *     
-     */
-    public void setReservaVuelo(Reserva value) {
-        this.reservaVuelo = value;
+    public void setReservas(List<Reserva> value) {
+        this.reservas = value;
     }
 
     /**

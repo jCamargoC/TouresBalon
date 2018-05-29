@@ -7,5 +7,5 @@ import com.touresbalon.entities.orders.SaleOrder;
 
 public interface OrderRepository extends IBaseRepository<SaleOrder, Long> {
 
-	public List<SaleOrder> finByIdCliente(Long idCliente);
+	public List<SaleOrder> findByIdCliente(Long idCliente);
 }

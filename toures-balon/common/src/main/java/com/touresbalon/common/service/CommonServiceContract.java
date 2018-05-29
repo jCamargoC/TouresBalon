@@ -87,14 +87,19 @@ public abstract class CommonServiceContract<T extends Object> {
 			List<T> response = (List<T>) method.invoke(repository, value);
 			return response;
 		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
 			throw new BusinessException(ErrorsEnum.REFLECTION_ERROR);
 		} catch (SecurityException e) {
+			e.printStackTrace();
 			throw new BusinessException(ErrorsEnum.REFLECTION_ERROR);
 		} catch (IllegalAccessException e) {
+			e.printStackTrace();
 			throw new BusinessException(ErrorsEnum.REFLECTION_ERROR);
 		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
 			throw new BusinessException(ErrorsEnum.REFLECTION_ERROR);
 		} catch (InvocationTargetException e) {
+			e.printStackTrace();
 			throw new BusinessException(ErrorsEnum.REFLECTION_ERROR);
 		}
 	}

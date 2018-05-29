@@ -51,7 +51,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlType(name = "reserva", propOrder = {
     "empresa",
     "id",
-    "idReserva"
+    "idReserva",
+    "tipoReserva"
 })
 @Entity
 @Table
@@ -67,6 +68,8 @@ public class Reserva {
     @XmlTransient
     @JsonIgnore
     protected SaleOrder orden;
+    
+    protected String tipoReserva;
 
     /**
      * Obtiene el valor de la propiedad empresa.
@@ -162,6 +165,30 @@ public class Reserva {
      */
     public void setOrden(SaleOrder value) {
         this.orden = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad tipoReserva.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getTipoReserva() {
+        return tipoReserva;
+    }
+
+    /**
+     * Define el valor de la propiedad tipoReserva.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setTipoReserva(String value) {
+        this.tipoReserva = value;
     }
 
 }

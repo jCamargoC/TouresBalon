@@ -6,10 +6,7 @@ export interface Order{
     idCliente:number;
     idProducto:number;
     idReserva:string;
-    reservaEspectaculo?:Reserva;
-    reservaHospedaje?:Reserva;
-    reservaVuelo?:Reserva;
-    reservaTransporte?:Reserva;
+    reservas?:Reserva[];
 }
 
 export interface Reserva{
@@ -17,5 +14,10 @@ export interface Reserva{
     empresa?:string;
     idReserva?:string;
     orderId?:number;
-    tiporeserva?:string; 
+    tipoReserva?:string; 
+}
+
+export interface OrderResponse{
+    messageGenerationTime:Date;
+    payload:Order[];
 }
